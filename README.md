@@ -53,19 +53,12 @@ This app follows **Clean Architecture** principles with clear separation of conc
    flutter pub get
    ```
 
-3. **Add your TMDB API key**
-   
-   Open `lib/data/datasources/movie_remote_data_source.dart` and replace `YOUR_TMDB_API_KEY` with your actual API key:
-   ```dart
-   static const String _apiKey = 'your_actual_api_key_here';
-   ```
-
-4. **Generate mock files for tests** (optional, for running tests)
+3. **Generate mock files for tests** (optional, for running tests)
    ```bash
    flutter pub run build_runner build --delete-conflicting-outputs
    ```
 
-5. **Run the app**
+4. **Run the app**
    ```bash
    flutter run
    ```

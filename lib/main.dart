@@ -17,6 +17,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final Color globalTextColor = Colors.amberAccent;
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (_) => di.sl<MoviesBloc>()),
@@ -26,8 +27,33 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'Movie Browser',
         theme: ThemeData(
+          scaffoldBackgroundColor: const Color(0xFF1B1B1B),
+          primaryColor: Colors.white, 
+          appBarTheme: const AppBarTheme(
+            backgroundColor: Color(0xFF1B1B1B),
+            elevation: 0, // Optional: removes the shadow under the app bar
+        ),
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
           useMaterial3: true,
+          textTheme: TextTheme(
+            // Apply the style to all body text variants
+            bodyLarge: TextStyle(color: globalTextColor),
+            bodyMedium: TextStyle(color: globalTextColor),
+            bodySmall: TextStyle(color: globalTextColor),
+            
+            // Apply to all display/headline variants
+            displayLarge: TextStyle(color: globalTextColor),
+            displayMedium: TextStyle(color: globalTextColor),
+            displaySmall: TextStyle(color: globalTextColor),
+            
+            // Apply to all title/label variants
+            titleLarge: TextStyle(color: globalTextColor),
+            titleMedium: TextStyle(color: globalTextColor),
+            titleSmall: TextStyle(color: globalTextColor),
+            
+            // Apply to button labels
+            labelLarge: TextStyle(color: globalTextColor),
+          ),
         ),
         home: const HomePage(),
       ),
