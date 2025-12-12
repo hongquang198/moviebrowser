@@ -89,20 +89,21 @@ lib/
 │   │   └── failures.dart          # Error types
 │   └── usecases/
 │       └── usecase.dart            # Base use case interface
-├── data/
-│   ├── datasources/               # Remote and local data sources
-│   ├── models/                    # Data models
-│   └── repositories/              # Repository implementations
-├── domain/
-│   ├── entities/                  # Business entities
-│   ├── repositories/              # Repository interfaces
-│   └── usecases/                  # Business logic use cases
 ├── injection_container.dart       # Dependency injection setup
 ├── main.dart                      # App entry point
-└── presentation/
-    ├── bloc/                      # BLoC classes
-    ├── pages/                     # UI screens
-    └── widgets/                   # Reusable widgets
+└   features/
+         ├── data/
+         │   ├── datasources/               # Remote and local data sources
+         │   ├── models/                    # Data models
+         │   └── repositories/              # Repository implementations
+         ├── domain/
+         │   ├── entities/                  # Business entities
+         │   ├── repositories/              # Repository interfaces
+         │   └── usecases/                  # Business logic use cases
+         ── presentation/
+            ├── bloc/                      # BLoC classes
+            ├── pages/                     # UI screens
+            └── widgets/                   # Reusable widgets
 ```
 
 ## Highlights
@@ -139,6 +140,8 @@ Search page: Not handled
 Movie detail page: Works but no offline indicator
 6. Haven't implemented CustomHttpsClient, so every time sending https request,
 we currently have to modify the request's headers to pass API key
+7. Haven't used sealed class so exhaustive type checking (BLoC state) may be prone to be missed
+8. Hard-coded color/padding due to time constraint. UI/theme may not be synchronized/uniformed between pages
 ## Future Enhancements
 
 - [ ] Embedded video player for trailers
@@ -148,6 +151,9 @@ we currently have to modify the request's headers to pass API key
 - [ ] Movie recommendations
 - [ ] Dark mode support
 - [ ] Internationalization (i18n)
+- [ ] Implement CustomeHttpsClient
+- [ ] Use dart's sealed class
+- [ ] Create uniformed theme class controlling text styles and colors
 
 ## Dependencies
 
@@ -160,7 +166,3 @@ we currently have to modify the request's headers to pass API key
 - `connectivity_plus`: Network status
 - `url_launcher`: Opening YouTube links
 - `get_it`: Dependency injection
-
-## License
-
-This project is created for educational purposes.

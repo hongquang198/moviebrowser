@@ -64,9 +64,7 @@ class _HomePageState extends State<HomePage> {
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => const SearchPage()),
-              ).then((_) {
-                context.read<FavoritesBloc>().add(const LoadFavorites());
-              });
+              );
             },
           ),
         ],
