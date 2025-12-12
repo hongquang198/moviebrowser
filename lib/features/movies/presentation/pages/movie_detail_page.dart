@@ -66,9 +66,9 @@ class MovieDetailPage extends StatelessWidget {
                       if (fav) {
                         context
                             .read<FavoritesBloc>()
-                            .add(RemoveFavorite(movie.id));
+                            .add(RemoveFavoriteEvent(movie.id));
                       } else {
-                        context.read<FavoritesBloc>().add(AddFavorite(movie));
+                        context.read<FavoritesBloc>().add(AddFavoriteEvent(movie));
                       }
                     },
                   );

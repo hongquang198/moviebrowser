@@ -142,6 +142,7 @@ Movie detail page: Works but no offline indicator
 we currently have to modify the request's headers to pass API key
 7. Haven't used sealed class so exhaustive type checking (BLoC state) may be prone to be missed
 8. Hard-coded color/padding due to time constraint. UI/theme may not be synchronized/uniformed between pages
+9. widget_test.dart hasn't worked since injection has not been set up.
 ## Future Enhancements
 
 - [ ] Embedded video player for trailers

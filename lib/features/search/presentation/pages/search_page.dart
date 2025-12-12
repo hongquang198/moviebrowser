@@ -27,7 +27,7 @@ class SearchPage extends StatelessWidget {
             padding: const EdgeInsets.all(16),
             child: SearchBarWidget(
               onSearch: (query) {
-                context.read<SearchBloc>().add(SearchMovies(query));
+                context.read<SearchBloc>().add(SearchMoviesEvent(query));
               },
             ),
           ),
@@ -62,11 +62,7 @@ class SearchPage extends StatelessWidget {
                                   isFavorite: isFav,
                                 ),
                               ),
-                            ).then((_) {
-                              context
-                                  .read<FavoritesBloc>()
-                                  .add(const LoadFavorites());
-                            });
+                            );
                           },
                           onFavoriteToggle: (movie) {
                             final isFav =
@@ -74,11 +70,11 @@ class SearchPage extends StatelessWidget {
                             if (isFav) {
                               context
                                   .read<FavoritesBloc>()
-                                  .add(RemoveFavorite(movie.id));
+                                  .add(RemoveFavoriteEvent(movie.id));
                             } else {
                               context
                                   .read<FavoritesBloc>()
-                                  .add(AddFavorite(movie));
+                                  .add(AddFavoriteEvent(movie));
                             }
                           },
                         );

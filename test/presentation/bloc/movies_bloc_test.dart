@@ -3,13 +3,13 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:mockito/annotations.dart';
 import 'package:dartz/dartz.dart';
-import 'package:moviebrowser/domain/entities/movie.dart';
-import 'package:moviebrowser/domain/usecases/get_popular_movies.dart';
-import 'package:moviebrowser/domain/usecases/get_cached_movies.dart';
 import 'package:moviebrowser/core/error/failures.dart';
-import 'package:moviebrowser/presentation/bloc/movies/movies_bloc.dart';
-import 'package:moviebrowser/presentation/bloc/movies/movies_event.dart';
-import 'package:moviebrowser/presentation/bloc/movies/movies_state.dart';
+import 'package:moviebrowser/features/movies/domain/entities/movie.dart';
+import 'package:moviebrowser/features/movies/domain/usecases/get_cached_movies.dart';
+import 'package:moviebrowser/features/movies/domain/usecases/get_popular_movies.dart';
+import 'package:moviebrowser/features/movies/presentation/bloc/movies_bloc.dart';
+import 'package:moviebrowser/features/movies/presentation/bloc/movies_event.dart';
+import 'package:moviebrowser/features/movies/presentation/bloc/movies_state.dart';
 
 import 'movies_bloc_test.mocks.dart';
 

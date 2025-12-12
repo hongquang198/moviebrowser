@@ -136,7 +136,7 @@ class _HomePageState extends State<HomePage> {
                             onFavoriteToggle: (movie) {
                               context
                                   .read<FavoritesBloc>()
-                                  .add(RemoveFavorite(movie.id));
+                                  .add(RemoveFavoriteEvent(movie.id));
                             },
                           ),
                         ],
@@ -185,11 +185,11 @@ class _HomePageState extends State<HomePage> {
                             if (isFav) {
                               context
                                   .read<FavoritesBloc>()
-                                  .add(RemoveFavorite(movie.id));
+                                  .add(RemoveFavoriteEvent(movie.id));
                             } else {
                               context
                                   .read<FavoritesBloc>()
-                                  .add(AddFavorite(movie));
+                                  .add(AddFavoriteEvent(movie));
                             }
                           },
                           onLoadMore:

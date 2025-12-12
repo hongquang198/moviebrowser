@@ -1,16 +1,16 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../domain/usecases/get_favorites.dart';
-import '../../domain/usecases/add_favorite.dart' as usecases;
-import '../../domain/usecases/remove_favorite.dart' as usecases;
 import '../../domain/usecases/is_favorite.dart';
+import '../../domain/usecases/add_favorite.dart';
+import '../../domain/usecases/remove_favorite.dart';
 import '../../../../core/usecases/usecase.dart';
 import 'favorites_event.dart';
 import 'favorites_state.dart';
 
 class FavoritesBloc extends Bloc<FavoritesEvent, FavoritesState> {
   final GetFavorites getFavorites;
-  final usecases.AddFavorite addFavorite;
-  final usecases.RemoveFavorite removeFavorite;
+  final AddFavorite addFavorite;
+  final RemoveFavorite removeFavorite;
   final IsFavorite isFavorite;
 
   FavoritesBloc({
@@ -20,8 +20,8 @@ class FavoritesBloc extends Bloc<FavoritesEvent, FavoritesState> {
     required this.isFavorite,
   }) : super(FavoritesInitial()) {
     on<LoadFavorites>(_onLoadFavorites);
-    on<AddFavorite>(_onAddFavorite);
-    on<RemoveFavorite>(_onRemoveFavorite);
+    on<AddFavoriteEvent>(_onAddFavorite);
+    on<RemoveFavoriteEvent>(_onRemoveFavorite);
     on<CheckIsFavorite>(_onCheckIsFavorite);
   }
 
@@ -40,10 +40,10 @@ class FavoritesBloc extends Bloc<FavoritesEvent, FavoritesState> {
   }
 
   Future<void> _onAddFavorite(
-    AddFavorite event,
+    AddFavoriteEvent event,
     Emitter<FavoritesState> emit,
   ) async {
-    final result = await addFavorite(usecases.AddFavoriteParams(movie: event.movie));
+    final result = await addFavorite(AddFavoriteParams(movie: event.movie));
 
     result.fold(
       (failure) => emit(FavoritesError(failure.message)),
@@ -55,10 +55,10 @@ class FavoritesBloc extends Bloc<FavoritesEvent, FavoritesState> {
   }
 
   Future<void> _onRemoveFavorite(
-    RemoveFavorite event,
+    RemoveFavoriteEvent event,
     Emitter<FavoritesState> emit,
   ) async {
-    final result = await removeFavorite(usecases.RemoveFavoriteParams(movieId: event.movieId));
+    final result = await removeFavorite(RemoveFavoriteParams(movieId: event.movieId));
 
     result.fold(
       (failure) => emit(FavoritesError(failure.message)),

@@ -3,24 +3,20 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:mockito/annotations.dart';
 import 'package:dartz/dartz.dart';
-import 'package:moviebrowser/domain/entities/movie.dart';
-import 'package:moviebrowser/domain/usecases/get_favorites.dart';
-import 'package:moviebrowser/domain/usecases/add_favorite.dart';
-import 'package:moviebrowser/domain/usecases/remove_favorite.dart';
 import 'package:moviebrowser/core/error/failures.dart';
 import 'package:moviebrowser/core/usecases/usecase.dart';
-import 'package:moviebrowser/presentation/bloc/favorites/favorites_bloc.dart';
-import 'package:moviebrowser/presentation/bloc/favorites/favorites_event.dart';
-import 'package:moviebrowser/presentation/bloc/favorites/favorites_state.dart';
+import 'package:moviebrowser/features/favorites/domain/usecases/get_favorites.dart';
+import 'package:moviebrowser/features/favorites/domain/usecases/add_favorite.dart';
+import 'package:moviebrowser/features/favorites/domain/usecases/remove_favorite.dart';
+import 'package:moviebrowser/features/favorites/domain/usecases/is_favorite.dart';
+import 'package:moviebrowser/features/favorites/presentation/bloc/favorites_bloc.dart';
+import 'package:moviebrowser/features/favorites/presentation/bloc/favorites_event.dart';
+import 'package:moviebrowser/features/favorites/presentation/bloc/favorites_state.dart';
+import 'package:moviebrowser/features/movies/domain/entities/movie.dart';
 
 import 'favorites_bloc_test.mocks.dart';
 
-@GenerateMocks([
-  GetFavorites,
-  AddFavorite,
-  RemoveFavorite,
-  IsFavorite,
-])
+@GenerateMocks([GetFavorites, AddFavorite, RemoveFavorite, IsFavorite])
 void main() {
   late FavoritesBloc favoritesBloc;
   late MockGetFavorites mockGetFavorites;
@@ -94,7 +90,7 @@ void main() {
       when(mockGetFavorites(any)).thenAnswer((_) async => Right(tFavorites));
       return favoritesBloc;
     },
-    act: (bloc) => bloc.add(AddFavorite(tMovie)),
+    act: (bloc) => bloc.add(AddFavoriteEvent(tMovie)),
     expect: () => [
       FavoritesLoading(),
       FavoritesLoaded(tFavorites),

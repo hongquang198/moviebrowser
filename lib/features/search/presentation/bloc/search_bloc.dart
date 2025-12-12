@@ -1,18 +1,18 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../movies/domain/usecases/search_movies.dart' as usecases;
+import '../../../movies/domain/usecases/search_movies.dart';
 import 'search_event.dart';
 import 'search_state.dart';
 
 class SearchBloc extends Bloc<SearchEvent, SearchState> {
-  final usecases.SearchMovies searchMovies;
+  final SearchMovies searchMovies;
 
   SearchBloc({required this.searchMovies}) : super(SearchInitial()) {
-    on<SearchMovies>(_onSearchMovies);
+    on<SearchMoviesEvent>(_onSearchMovies);
     on<ClearSearch>(_onClearSearch);
   }
 
   Future<void> _onSearchMovies(
-    SearchMovies event,
+    SearchMoviesEvent event,
     Emitter<SearchState> emit,
   ) async {
     if (event.query.isEmpty) {
@@ -22,7 +22,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
 
     emit(SearchLoading());
 
-    final result = await searchMovies(usecases.SearchMoviesParams(query: event.query));
+    final result = await searchMovies(SearchMoviesParams(query: event.query));
 
     result.fold(
       (failure) => emit(SearchError(failure.message)),

@@ -12,19 +12,19 @@ class LoadFavorites extends FavoritesEvent {
   const LoadFavorites();
 }
 
-class AddFavorite extends FavoritesEvent {
+class AddFavoriteEvent extends FavoritesEvent {
   final Movie movie;
 
-  const AddFavorite(this.movie);
+  const AddFavoriteEvent(this.movie);
 
   @override
   List<Object> get props => [movie];
 }
 
-class RemoveFavorite extends FavoritesEvent {
+class RemoveFavoriteEvent extends FavoritesEvent {
   final int movieId;
 
-  const RemoveFavorite(this.movieId);
+  const RemoveFavoriteEvent(this.movieId);
 
   @override
   List<Object> get props => [movieId];
