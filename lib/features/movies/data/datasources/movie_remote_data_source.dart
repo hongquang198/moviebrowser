@@ -22,7 +22,11 @@ class MovieRemoteDataSourceImpl implements MovieRemoteDataSource {
   @override
   Future<List<MovieModel>> getPopularMovies({int page = 1}) async {
     final response = await client.get(
-      Uri.parse('$_baseUrl/movie/popular?api_key=$apiKey&page=$page'),
+      Uri.parse('$_baseUrl/movie/popular?language=en-US&page=$page'),
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer $apiKey',
+          },
     );
 
     if (response.statusCode == 200) {
@@ -44,7 +48,11 @@ class MovieRemoteDataSourceImpl implements MovieRemoteDataSource {
     final encodedQuery = Uri.encodeComponent(query.trim());
     final response = await client.get(
       Uri.parse(
-          '$_baseUrl/search/movie?api_key=$apiKey&query=$encodedQuery&page=$page'),
+          '$_baseUrl/search/movie?&query=$encodedQuery&page=$page'),
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer $apiKey',
+          },
     );
 
     if (response.statusCode == 200) {
@@ -61,7 +69,11 @@ class MovieRemoteDataSourceImpl implements MovieRemoteDataSource {
   Future<MovieModel> getMovieDetails(int movieId) async {
     // Use append_to_response to get videos in the same call for optimization
     final response = await client.get(
-      Uri.parse('$_baseUrl/movie/$movieId?api_key=$apiKey&append_to_response=videos'),
+      Uri.parse('$_baseUrl/movie/$movieId?&append_to_response=videos'),
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $apiKey',
+      },
     );
 
     if (response.statusCode == 200) {
@@ -99,7 +111,11 @@ class MovieRemoteDataSourceImpl implements MovieRemoteDataSource {
   @override
   Future<String?> getMovieVideoKey(int movieId) async {
     final response = await client.get(
-      Uri.parse('$_baseUrl/movie/$movieId/videos?api_key=$apiKey'),
+      Uri.parse('$_baseUrl/movie/$movieId/videos'),
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $apiKey',
+      },
     );
 
     if (response.statusCode == 200) {

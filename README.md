@@ -23,20 +23,20 @@ This app follows **Clean Architecture** principles with clear separation of conc
 
 ### Key Features
 
-✅ **Clean Architecture** - Separation of concerns with Domain, Data, and Presentation layers  
-✅ **BLoC Pattern** - Reactive state management  
-✅ **Error Handling** - Using dartz Either type for functional error handling  
-✅ **Offline Support** - Cached movies available when offline  
-✅ **Favorites** - Local storage of favorite movies with carousel display  
-✅ **Smooth Animations** - Fade-in, scale, and slide animations throughout  
-✅ **Search** - Real-time movie search with autocomplete support  
-✅ **Video Playback** - YouTube trailer integration  
-✅ **Unit Tests** - Comprehensive test coverage for use cases and BLoC
+1. **Clean Architecture** - Separation of concerns with Domain, Data, and Presentation layers  
+2. **BLoC Pattern** - Reactive state management  
+3. **Error Handling** - Using dartz Either type for functional error handling  
+4. **Offline Support** - Cached movies available when offline  
+5. **Favorites** - Local storage of favorite movies with carousel display  
+6. **Smooth Animations** - Fade-in, scale, and slide animations throughout  
+7. **Search** - Real-time movie search with autocomplete support  
+8. **Video Playback** - YouTube trailer integration  
+9. **Unit Tests** - Comprehensive test coverage for use cases and BLoC
 
 ## Setup Instructions
 
 ### Prerequisites
-- Flutter SDK (3.7.0 or higher. This project uses 3.29.0)
+- Flutter SDK (3.7.0 or higher. This project uses Flutter 3.29.0-stable)
 - Dart SDK
 - TMDB API key (free at https://www.themoviedb.org/settings/api)
 
@@ -137,7 +137,8 @@ lib/
 Listing page without cache: Basic (error + button)
 Search page: Not handled
 Movie detail page: Works but no offline indicator
-
+6. Haven't implemented CustomHttpsClient, so every time sending https request,
+we currently have to modify the request's headers to pass API key
 ## Future Enhancements
 
 - [ ] Embedded video player for trailers

@@ -7,7 +7,7 @@ import '../bloc/movies_state.dart';
 import '../../../favorites/presentation/bloc/favorites_bloc.dart';
 import '../../../favorites/presentation/bloc/favorites_event.dart';
 import '../../../favorites/presentation/bloc/favorites_state.dart';
-import '../widgets/movie_grid.dart';
+import '../widgets/movie_grid_sliver.dart';
 import '../widgets/movie_carousel.dart';
 import 'movie_detail_page.dart';
 import '../../../search/presentation/pages/search_page.dart';
@@ -20,7 +20,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final ScrollController _scrollController = ScrollController();
   int _currentPage = 1;
 
   @override
@@ -32,7 +31,6 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void dispose() {
-    _scrollController.dispose();
     super.dispose();
   }
 
@@ -50,9 +48,7 @@ class _HomePageState extends State<HomePage> {
           isFavorite: isFavorite,
         ),
       ),
-    ).then((_) {
-      context.read<FavoritesBloc>().add(const LoadFavorites());
-    });
+    );
   }
 
   @override
@@ -94,7 +90,6 @@ class _HomePageState extends State<HomePage> {
             context.read<FavoritesBloc>().add(const LoadFavorites());
           },
           child: CustomScrollView(
-            controller: _scrollController,
             slivers: [
               BlocBuilder<MoviesBloc, MoviesState>(
                 builder: (context, moviesState) {
@@ -171,42 +166,38 @@ class _HomePageState extends State<HomePage> {
                   }
 
                   if (state is MoviesLoaded) {
-                    return SliverFillRemaining(
-                      hasScrollBody: false,
-                      child: BlocBuilder<FavoritesBloc, FavoritesState>(
-                        builder: (context, favoritesState) {
-                          List<Movie> favorites = [];
-                          if (favoritesState is FavoritesLoaded) {
-                            favorites = favoritesState.favorites;
-                          }
-                          return MovieGrid(
-                            movies: state.movies,
-                            scrollController: _scrollController,
-                            isFavorite: (movie) =>
-                                favorites.any((m) => m.id == movie.id),
-                            onMovieTap: (movie) {
-                              final isFav =
-                                  favorites.any((m) => m.id == movie.id);
-                              _navigateToMovieDetail(movie, isFav);
-                            },
-                            onFavoriteToggle: (movie) {
-                              final isFav =
-                                  favorites.any((m) => m.id == movie.id);
-                              if (isFav) {
-                                context
-                                    .read<FavoritesBloc>()
-                                    .add(RemoveFavorite(movie.id));
-                              } else {
-                                context
-                                    .read<FavoritesBloc>()
-                                    .add(AddFavorite(movie));
-                              }
-                            },
-                            onLoadMore:
-                                state.hasReachedMax ? null : _loadMoreMovies,
-                          );
-                        },
-                      ),
+                    return BlocBuilder<FavoritesBloc, FavoritesState>(
+                      builder: (context, favoritesState) {
+                        List<Movie> favorites = [];
+                        if (favoritesState is FavoritesLoaded) {
+                          favorites = favoritesState.favorites;
+                        }
+                        return MovieGridSliver(
+                          movies: state.movies,
+                          isFavorite: (movie) =>
+                              favorites.any((m) => m.id == movie.id),
+                          onMovieTap: (movie) {
+                            final isFav =
+                                favorites.any((m) => m.id == movie.id);
+                            _navigateToMovieDetail(movie, isFav);
+                          },
+                          onFavoriteToggle: (movie) {
+                            final isFav =
+                                favorites.any((m) => m.id == movie.id);
+                            if (isFav) {
+                              context
+                                  .read<FavoritesBloc>()
+                                  .add(RemoveFavorite(movie.id));
+                            } else {
+                              context
+                                  .read<FavoritesBloc>()
+                                  .add(AddFavorite(movie));
+                            }
+                          },
+                          onLoadMore:
+                              state.hasReachedMax ? null : _loadMoreMovies,
+                        );
+                      },
                     );
                   }
 

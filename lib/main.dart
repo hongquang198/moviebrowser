@@ -17,19 +17,19 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Movie Browser',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
-      home: MultiBlocProvider(
-        providers: [
-          BlocProvider(create: (_) => di.sl<MoviesBloc>()),
-          BlocProvider(create: (_) => di.sl<SearchBloc>()),
-          BlocProvider(create: (_) => di.sl<FavoritesBloc>()),
-        ],
-        child: const HomePage(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (_) => di.sl<MoviesBloc>()),
+        BlocProvider(create: (_) => di.sl<SearchBloc>()),
+        BlocProvider(create: (_) => di.sl<FavoritesBloc>()),
+      ],
+      child: MaterialApp(
+        title: 'Movie Browser',
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+          useMaterial3: true,
+        ),
+        home: const HomePage(),
       ),
     );
   }
